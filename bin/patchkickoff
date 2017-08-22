@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /usr/share/plasma/plasmoids/org.kde.plasma.kickoff/
+pwd
+sudo patch -p1 < ~/bin/kickoff.patch

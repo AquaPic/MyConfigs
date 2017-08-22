@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ $# -eq 2 ]; then
+    if [ -d $2 ]; then
+        directory=$2
+    else
+        directory="."
+    fi
+else
+    directory="."
+fi
+
+find $directory -name $1 2>/dev/null 

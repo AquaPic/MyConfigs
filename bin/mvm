@@ -1,0 +1,32 @@
+#!/bin/bash
+if [ $# -ne 2 ]; then
+	cat << stop
+Error: Invalid number of arguments
+Usage: mvm 'file*' Dest
+stop
+	exit 1
+fi
+
+if [ ! -d $2 ]; then
+	echo Error: $2 does not exist. Can\'t move files.
+	exit 2
+fi
+
+list=($(ls -d $1))
+echo -n "Are you sure you want to move files '${list[*]}' to $2 (y/n): "
+input_okay=0
+while [ $input_okay -eq 0 ]; do
+	read input
+	if [ "$input" == "y" -o "$input" == "Y" ]; then
+		input_okay=1
+		for f in ${list[@]}; do
+			echo Moving $f to $2/$f
+			mv $f $2/$f
+		done
+	elif [ "$input" == "n" -o "$input" == "N" ]; then
+		input_okay=1
+	else
+		echo -n "Enter y or n: "
+	fi
+done
+exit 0

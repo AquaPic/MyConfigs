@@ -1,0 +1,79 @@
+filetype plugin indent on   " 
+syntax on                   " Enable synatax highlighting
+let c_comment_strings=1     " Highlight strings within comments
+" set omnifunc=syntaxcomplete#Complete  " Enable Omni code completion
+set hidden                  " Switch between unsaved buffers
+set history=200             " Keep 200 lines of command line history
+set ruler                   " Show cursor position
+set number                  " Show line numbers
+set wildmenu                " Better command line completion
+set showcmd                 " Show partial command in the last line of the screen
+set nowrap                  " Don't wrap text
+set mouse=a                 " Allow the use of the mouse
+set switchbuf=useopen,usetab    " Set buffer switch behavior
+set notimeout               " Never timeout on mappings
+set ttimeout                " Time out for key codes
+set ttimeoutlen=250         " wait up to 250ms after Esc for special key
+set backspace=indent,eol,start  " Allow backspacing over autoindent, line breaks, and start of insert action
+set incsearch               " Highlight while searching
+set hlsearch                " Highligh search terms, remap redraw screen to clear highlight
+set ignorecase              " Use case insensitive search
+set smartcase               " Except for captial letters
+set scrolloff=7             " Show a few lines of context around the cursor
+set shiftwidth=4            " Tab/Space with is 4 spaces
+set tabstop=4               " Tabs are shown with 4 spaces
+set softtabstop=4           " Softtabs are shown with 4 spaces
+set expandtab               " Use spaces instead of tabs
+set autoindent              " 
+set confirm                 " Prompt closing with unsaved buffer
+set visualbell              " Use visual bell instead of beeping
+" And reset the terminal code for the visual bell. If visualbell is set, and
+" this line is also included, vim will neither flash nor beep. If visualbell
+" is unset, this does nothing.
+set t_vb=                   " Prevents the terrible screen flash
+set cmdheight=2             " Set the command window height to 2 lines
+" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
+" confusing.
+set nrformats-=octal
+
+" Put these in an autocmd group, so that you can revert them with:
+" ":augroup vimStartup | au! | augroup END"
+augroup vimStartup
+    au!
+
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid, when inside an event handler
+    " (happens when dropping a file on gvim) and for a commit message (it's
+    " likely a different one than last time).
+    autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
+augroup END
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+if !exists(":DiffOrig")
+    command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+            \ | wincmd p | diffthis
+endif
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" C like language comment formatting
+autocmd FileType c,cpp,java,cs set formatoptions+=ro
