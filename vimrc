@@ -47,5 +47,6 @@ nmap <leader>q :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-" Start NERDTree undo startup
-" autocmd VimEnter * NERDTree
+" Live on the dangerous side and enable progect specific vimrc's
+set exrc
+set secure
