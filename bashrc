@@ -47,4 +47,54 @@ if [ -f .bashrc-local ]; then
     . ./.bashrc-local
 fi
 
-PS1="[\[$(tput sgr0)\]\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[\033[38;5;10m\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"
+[ -z $host_color ] && host_color='\[\033[38;5;10m\]'
+
+PROMPT_COMMAND=set_prompt
+
+set_prompt () {
+    exit_status=$?
+    get_working_directory
+    process_exit_status
+    [ -n "$include_git_status" ] && get_git_status || git_status=""
+    PS1="\[$(tput sgr0)\][\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[$host_color\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\[$working_directory\]\[$(tput sgr0)\]]\[$git_status\]\[$exit_status\]\\$\[$(tput sgr0)\] "
+}
+
+get_git_status () {
+    branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
+    if [[ -n $branch ]]; then
+        git_status=`git status -s | awk '{printf(" %s", $1)}'`
+        git_status="\[$(tput sgr0)\]\[\033[38;5;8m\](\[$branch\]\[$(tput sgr0)\]\[\033[38;5;1m\]\[$git_status\]\[$(tput sgr0)\]\[\033[38;5;8m\])\[$(tput sgr0)\]"
+    else
+        git_status=""
+    fi
+}
+
+process_exit_status () {
+    if [ $exit_status -eq 0 ]; then
+        exit_status=""
+    else
+        exit_status="\[$(tput sgr0)\]\[\033[38;5;1m\]<\[$exit_status\]>\[$(tput sgr0)\]"
+    fi
+}
+
+get_working_directory () {
+    case $PWD in
+        $HOME)
+            working_directory="~"
+            ;;
+        $HOME/*/*)
+            working_directory="~/../${PWD#"${PWD%/*/*}/"}"
+            ;;
+        $HOME/*)
+            working_directory="~/${PWD##*/}"
+            ;;
+        /*/*/*)
+            working_directory="../${PWD#"${PWD%/*/*}/"}"
+            ;;
+        *)
+            working_directory="$PWD"
+            ;;
+    esac
+}
+
+#PS1="[\[$(tput sgr0)\]\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[\033[38;5;10m\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"
