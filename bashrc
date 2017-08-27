@@ -48,7 +48,7 @@ if [ -f .bashrc-local ]; then
 fi
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    color_host_name='\[\033[38;5;9m\]'
+    color_host_name='\[\033[38;5;3m\]'
 else
     color_host_name='\[\033[38;5;10m\]'
 fi
