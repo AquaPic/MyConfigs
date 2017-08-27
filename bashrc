@@ -62,7 +62,8 @@ set_prompt () {
 get_git_status () {
     branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
     if [[ -n $branch ]]; then
-        git_status=`git status -s | awk '{printf(" %s", $1)}'`
+        git_status=`git status -s | awk '{print $1}' | sort -u | awk '{printf(" %s", $1)}'`
+        #git_status=`git status -s | awk '{printf(" %s", $1)}'`
         git_status="\[$(tput sgr0)\]\[\033[38;5;8m\](\[$branch\]\[$(tput sgr0)\]\[\033[38;5;1m\]\[$git_status\]\[$(tput sgr0)\]\[\033[38;5;8m\])\[$(tput sgr0)\]"
     else
         git_status=""
