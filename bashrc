@@ -47,7 +47,11 @@ if [ -f .bashrc-local ]; then
     . ./.bashrc-local
 fi
 
-[ -z $host_color ] && host_color='\[\033[38;5;10m\]'
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    color_host_name='\[\033[38;5;9m\]'
+else
+    color_host_name='\[\033[38;5;10m\]'
+fi
 
 PROMPT_COMMAND=set_prompt
 
@@ -56,14 +60,13 @@ set_prompt () {
     get_working_directory
     process_exit_status
     [ -n "$include_git_status" ] && get_git_status || git_status=""
-    PS1="\[$(tput sgr0)\][\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[$host_color\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\[$working_directory\]\[$(tput sgr0)\]]\[$git_status\]\[$exit_status\]\\$\[$(tput sgr0)\] "
+    PS1="\[$(tput sgr0)\][\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[$color_host_name\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\[$working_directory\]\[$(tput sgr0)\]]\[$git_status\]\[$exit_status\]\\$\[$(tput sgr0)\] "
 }
 
 get_git_status () {
     branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
     if [[ -n $branch ]]; then
         git_status=`git status -s | awk '{print $1}' | sort -u | awk '{printf(" %s", $1)}'`
-        #git_status=`git status -s | awk '{printf(" %s", $1)}'`
         git_status="\[$(tput sgr0)\]\[\033[38;5;8m\](\[$branch\]\[$(tput sgr0)\]\[\033[38;5;1m\]\[$git_status\]\[$(tput sgr0)\]\[\033[38;5;8m\])\[$(tput sgr0)\]"
     else
         git_status=""
