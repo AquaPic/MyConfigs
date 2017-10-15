@@ -86,8 +86,11 @@ get_working_directory () {
         $HOME)
             working_directory="~"
             ;;
-        $HOME/*/*)
+        $HOME/*/*/*)
             working_directory="~/../${PWD#"${PWD%/*/*}/"}"
+            ;;
+        $HOME/*/*)
+            working_directory="~/${PWD#"${PWD%/*/*}/"}"
             ;;
         $HOME/*)
             working_directory="~/${PWD##*/}"
