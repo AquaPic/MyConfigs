@@ -29,9 +29,9 @@ export PATH
 export BROWSER=/usr/bin/chromium
 export EDITOR=/usr/bin/vim
 
-alias ls='ls -l --color'
-alias la='ls -al --color'
-alias ll='ls -al --color | less -RX'
+alias ls='ls -lh --color'
+alias la='ls -alh --color'
+alias ll='ls -alh --color | less -RX'
 alias cls='clear'
 alias dirs='dirs -v'
 alias mysqld='sudo mysqld -u mysql'
@@ -105,3 +105,5 @@ get_working_directory () {
 }
 
 #PS1="[\[$(tput sgr0)\]\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[\033[38;5;10m\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"
+
+export PATH="$PATH:"/Applications/microchip/xc32/v1.44/bin""
