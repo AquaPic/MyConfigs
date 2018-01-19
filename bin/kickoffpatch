@@ -1,9 +1,0 @@
-#!/bin/bash
-
-cd /usr/share/plasma/plasmoids/org.kde.plasma.kickoff/
-stat=`grep "Layout.minimumHeight: units.gridUnit \* 54" contents/ui/FullRepresentation.qml`
-if [ "$stat" != "" ]; then
-    echo File already patched
-else
-    sudo patch -p1 < ~/bin/kickoff.patch
-fi

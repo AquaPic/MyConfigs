@@ -107,3 +107,5 @@ get_working_directory () {
 #PS1="[\[$(tput sgr0)\]\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[\033[38;5;10m\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"
 
 export PATH="$PATH:"/Applications/microchip/xc32/v1.44/bin""
+
+export PATH="$PATH:"/opt/microchip/xc32/v1.44/bin""
