@@ -107,3 +107,5 @@ get_working_directory () {
 export PATH="$PATH:"/Applications/microchip/xc32/v1.44/bin""
 
 export PATH="$PATH:"/opt/microchip/xc32/v1.44/bin""
+
+export PATH="$PATH:/usr/local/bin/ignition"
