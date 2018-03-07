@@ -26,9 +26,6 @@ if [ -d ~/bin-local ]; then
 fi
 export PATH
 
-export BROWSER=/usr/bin/chromium
-export EDITOR=/usr/bin/vim
-
 alias ls='ls -lh --color'
 alias la='ls -alh --color'
 alias ll='ls -alh --color | less -RX'
@@ -36,22 +33,21 @@ alias cls='clear'
 alias dirs='dirs -v'
 alias ps='ps -elf'
 alias etar='tar xvzf'
-alias mysqld='sudo mysqld -u mysql'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-if [ -f .bashrc-local ]; then
-    . ./.bashrc-local
+if [ -f ~/.bashrc-local ]; then
+    . ~/.bashrc-local
 fi
+
+PROMPT_COMMAND=set_prompt
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     color_host_name='\[\033[38;5;3m\]'
 else
     color_host_name='\[\033[38;5;10m\]'
 fi
-
-PROMPT_COMMAND=set_prompt
 
 set_prompt () {
     exit_status=$?
@@ -103,9 +99,4 @@ get_working_directory () {
 }
 
 #PS1="[\[$(tput sgr0)\]\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[\033[38;5;10m\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"
-
-export PATH="$PATH:"/Applications/microchip/xc32/v1.44/bin""
-
-export PATH="$PATH:"/opt/microchip/xc32/v1.44/bin""
-
-export PATH="$PATH:/usr/local/bin/ignition"
+set_prompt
