@@ -36,7 +36,6 @@ alias etar='tar xvzf'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias gitpush='git push origin master'
 
 if [ -f ~/.bashrc-local ]; then
     . ~/.bashrc-local

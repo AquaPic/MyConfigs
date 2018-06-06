@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then
+	cat << stop
+Error: Invalid number of arguments
+Usage: gitpush Remote
+stop
+	exit 1
+fi
+
+git push $1 master
