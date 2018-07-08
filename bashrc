@@ -20,7 +20,10 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-PATH=$PATH:~/bin
+if [ -d ~/bin ]; then
+    PATH=$PATH:~/bin
+fi
+
 if [ -d ~/bin-local ]; then
     PATH=$PATH:~/bin-local
 fi
