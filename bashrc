@@ -20,15 +20,7 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-if [ -d ~/bin ]; then
-    PATH=$PATH:~/bin
-fi
-
-if [ -d ~/bin-local ]; then
-    PATH=$PATH:~/bin-local
-fi
-export PATH
-
+# common aliases
 alias ls='ls -lh --color'
 alias la='ls -alh --color'
 alias ll='ls -alh --color | less -RX'
@@ -40,9 +32,23 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+# add ~/bin to PATH if it exists
+if [ -d ~/bin ]; then
+    PATH=$PATH:~/bin
+fi
+
+# add ~/bin-local to PATH if it exists
+if [ -d ~/bin-local ]; then
+    PATH=$PATH:~/bin-local
+fi
+
+# execute ~/.bashrc-local if it exists
 if [ -f ~/.bashrc-local ]; then
     . ~/.bashrc-local
 fi
+
+# now export PATH because .bashrc-local might add some execution paths
+export PATH
 
 PROMPT_COMMAND=set_prompt
 
