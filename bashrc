@@ -60,10 +60,10 @@ fi
 
 set_prompt () {
     exit_status=$?
-    get_working_directory
+    #get_working_directory
     process_exit_status
     [ -n "$include_git_status" ] && get_git_status || git_status=""
-    PS1="\[$(tput sgr0)\][\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[$color_host_name\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\[$working_directory\]\[$(tput sgr0)\]]\[$git_status\]\[$exit_status\]\\$\[$(tput sgr0)\] "
+    PS1="\[$(tput sgr0)\][\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[$color_host_name\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\w\[$(tput sgr0)\]]\[$git_status\]\[$exit_status\]\\n\$\[$(tput sgr0)\] "
 }
 
 get_git_status () {
@@ -109,3 +109,4 @@ get_working_directory () {
 
 #PS1="[\[$(tput sgr0)\]\[\033[38;5;10m\]\u\[$(tput sgr0)\]@\[\033[38;5;10m\]\h\[$(tput sgr0)\]:\[\033[38;5;14m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"
 set_prompt
+
