@@ -24,7 +24,7 @@ shopt -s checkwinsize
 alias ls='ls -lh --color'
 alias la='ls -alh --color'
 alias ll='ls -alh --color | less -RX'
-alias cls='clear'
+alias cls='cd; clear;'
 alias dirs='dirs -v'
 alias ps='ps -elf'
 alias etar='tar xvzf'
